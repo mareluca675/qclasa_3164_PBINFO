@@ -1,0 +1,58 @@
+#include <fstream>
+#include <algorithm>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+struct elev{
+    int nr;
+    int nota;
+    int ab;
+};
+
+bool cmp(elev a, elev b){
+    if(a.ab > b.ab){
+        return true;
+    }
+
+    if(a.ab == b.ab){
+        if(a.nr < b.nr){
+            return true;
+        }
+        return false;
+    }
+
+    return false;
+}
+
+int n, zece, medie;
+
+int main()
+{
+    ifstream cin("qclasa.in");
+    ofstream cout("qclasa.out");
+
+    cin >> n;
+    vector<elev> vec(n);
+
+    for(int i = 0; i < n; i ++){
+        cin >> vec[i].nr >> vec[i].nota >> vec[i].ab;
+
+        medie += vec[i].nota;
+
+        if(vec[i].nota == 10){
+            zece ++;
+        }
+    }
+
+    cout << zece << '\n' << floor(medie / n) << '\n';
+
+    sort(vec.begin(), vec.end(), cmp);
+
+    cout << vec[0].nr << ' ' << vec[0].nota << ' ' << vec[0].ab << '\n';
+    cout << vec[1].nr << ' ' << vec[1].nota << ' ' << vec[1].ab << '\n';
+
+
+    return 0;
+}
